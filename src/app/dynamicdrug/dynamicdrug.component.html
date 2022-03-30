@@ -1,0 +1,29 @@
+<!-- Seperate component To pass the Different JSON Data Format for Dynamic component - Can use N- number JSON data formats -->
+<p>
+  <mat-toolbar color="primary">
+    <span>Patient Drug ORDER Details Format</span>
+  </mat-toolbar>
+</p>
+
+<div class="formBackground">
+  <div class="col-3" style="margin-top:2%">
+    Kindly Select the drug Data from list
+  </div>
+
+
+  <div class="col-6 " style="margin-left:5%">
+    <mat-form-field>
+      <mat-label>Drug JSON Type</mat-label>
+      <mat-select name="drug" placeholder="Select drug JSON type" [(ngModel)]="selectedValue">
+        <mat-option *ngFor="let drug of listOfDrug" [value]="drug.value">
+          {{drug.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<!-- {{selectedValue | json}} -->
+
+<!-- Dynamic Component which adds forms based on order -->
+<app-dynamic-json-schema [jsonFormData]="selectedValue"></app-dynamic-json-schema>

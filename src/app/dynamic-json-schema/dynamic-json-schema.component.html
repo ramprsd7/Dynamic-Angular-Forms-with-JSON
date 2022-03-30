@@ -1,0 +1,43 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div *ngFor="let control of jsonFormData?.fields" style="margin-left: 10%;" class="background">
+        <div class="col-4" style="margin-right:5%">
+            <label>{{ control.label }}</label>
+        </div>
+
+        <div class="col-6">
+            <input *ngIf="
+            [
+              'date',
+              'string',
+              'number',
+            ].includes(control.type)
+          " [type]="control.type" [formControlName]="control.key" [required]="control.isRequired"
+                [readonly]="control.isReadonly" [placeholder]="control.unit">
+
+            <select class="col-6" *ngIf="['dropdown'].includes(control.type)" [formControlName]="control.key"
+                [required]="control.isRequired">
+                <option *ngFor="let item of control.items" [value]="item['text']">
+                    {{ item['value'] }}
+                </option>
+            </select>
+
+        </div>
+
+
+    </div>
+
+    <div class="col-4">
+        <button mat-raised-button color="primary" *ngIf="firstChange" mat-button type="submit" class="btn">Submit</button>
+        <button mat-raised-button color="primary" *ngIf="firstChange" mat-button type="reset" class="btn">reset</button>
+    </div>
+</form>
+
+<div *ngIf="firstChange">
+    <p>
+        Form Values : {{ myForm.value | json}}
+    </p>
+
+    <p>
+      isForm Valid :   {{myForm.valid}}
+    </p>
+</div>
